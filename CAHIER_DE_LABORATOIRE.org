@@ -1,0 +1,46 @@
+#+OPTIONS: ':nil *:t -:t ::t <:t H:3 \n:nil ^:t arch:headline
+#+OPTIONS: author:t broken-links:nil c:nil creator:nil
+#+OPTIONS: d:(not "LOGBOOK") date:t e:t email:nil f:t inline:t num:t
+#+OPTIONS: p:nil pri:nil prop:nil stat:t tags:t tasks:t tex:t
+#+OPTIONS: timestamp:t title:t toc:t todo:t |:t
+#+TITLE: CAHIER_DE_LABORATOIRE
+#+DATE: <2022-01-18 mar.>
+#+AUTHOR: Makefile MPI + OpenMP
+#+EMAIL: 
+#+LANGUAGE: fr
+#+SELECT_TAGS: export
+#+EXCLUDE_TAGS: noexport
+#+CREATOR: Emacs 25.2.2 (Org mode 9.1.14)
+
+* Gestion du code
+** Ajout de script python working_machines.py pour assurer l'envoi de fichiers entre machines
+** URL du gitlab de l'équipe
+  https://gitlab.ensimag.fr/elouatih/distributed.git
+* Déployement dans Grid 5000
+  Vous trouverez l'ensemble des commandes à taper détaillées pour déployer sur Grid5000
+  dans le fichier Déploiement_sur_grid5000.pdf
+* Plan d'expériences
+  Pour trois tests: premier, premier_small et simu_pi, on souhaite
+  mesurer le temps d'exécution lorsqu'on varie le nombre de processus entre 2 et 64.
+  On mesure également l'efficacité et l'accélération.
+
+  On teste sur 4 machines avec 16 processus chacun.
+  La première expérience est réalisé sur le cluster grisou de Nancy avec 4 machines à 2 CPU et 8 cores par CPU chacune,
+  ce qui fait au total 16 processus par machine, donc 64 processus.
+  La deuxième et la troisième expériences sont réalisées sur le cluster chetemi avec 4 machines à 2 CPU et 10 cores
+  par CPU chacune, ce qui fait au total 20 processus par machine, donc 80 processus.
+
+  Pour chaque expérience, le temps estimé est dans les environs de 1h30.
+
+* Expérimentations
+  Pour lancer les expérimentations de manières automatiques, il faut se connecter sur Grid5000 puis sur un front-end.
+  - Récupérer le dépôt git
+  - Pour réserver les machines : ./distributed/book.sh
+  - Pour préparer l'environnement : ./distributed/deploy-machines.sh
+  - Autoriser les connections : Se connecter en root sur chaque machine réservée puis créer un fichier et l'envoyer
+                                 à toutes les autres machines en confirmant la connection (répondre yes).
+  - Consulter run.sh pour modifier le répertoire contenant le Makefile test dans la ligne 13
+  - Déployer le programme : ./distributed/run.sh
+* Fabrication des courbes de performances
+  A la fin du déploiement des expériences, une courbe sera automatiquement créée dans ./distributed/images. Le script en
+  charge de la création de la courbe est ./stats.py
